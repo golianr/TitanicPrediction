@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+
 
 def predict():
     dataset = pd.read_csv("Titanic-Dataset.csv")
@@ -35,8 +37,12 @@ def predict():
     model.fit(features_train, target_train)
     prediction = model.predict(features_test)
 
+    # Analyzing results
+    print("Accuracy: ", accuracy_score(target_test, prediction))
+    print("Confusion Matrix: ", confusion_matrix(target_test, prediction))
+    print("Classification Report:\n", classification_report(target_test, prediction))
 
-    # Analyzing results and creating graphs
+    # Creating graphs
     plt.figure(figsize=(10,5))
     plt.plot(range(len(target_test)), target_test.values, label='True', color='blue', alpha=0.6)
     plt.plot(range(len(prediction)), prediction, label='Predicted', color='red', linestyle='--', alpha=0.4)
